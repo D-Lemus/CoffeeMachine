@@ -44,9 +44,9 @@ class CoffeeMachine:
                     self.beans -= CoffeeMachine.ESPRESSO_BEANS
                     self.cups -= 1
                     self.water -= CoffeeMachine.ESPRESSO_WATER
-                    print(f"Espresso #{count} Ready\n=============================\n")
+                    print(f"Espresso #{i+1} Ready\n=============================\n")
 
-                else: print(f"Espresso #{count} could not be filled because 1 or more ingredients is missing\n=============================\n")
+                else: print(f"Espresso #{i+1} could not be filled because 1 or more ingredients is missing\n=============================\n")
 
             #LATTE
             elif coffeeType ==2:
@@ -56,9 +56,9 @@ class CoffeeMachine:
                     self.milk -= CoffeeMachine.LATTE_MILK
                     self.cups -= 1
                     self.water -= CoffeeMachine.LATTE_WATER
-                    print(f"Latte  #{count} Ready\n=============================\n")
+                    print(f"Latte  #{i+1} Ready\n=============================\n")
 
-                else: print(f"Latte #{count} could not be filled because 1 or more ingredients is missing\n=============================\n")
+                else: print(f"Latte #{i+1} could not be filled because 1 or more ingredients is missing\n=============================\n")
             #CAPUCCINO
             elif coffeeType ==3:
                 if ((self.beans - CoffeeMachine.CAPUCCINO_BEANS) >= 0 and (self.cups - 1) >= 0 and (self.water - CoffeeMachine.CAPUCCINO_WATER) >= 0) and (self.milk - CoffeeMachine.CAPUCCINO_MILK) >= 0:
@@ -68,9 +68,9 @@ class CoffeeMachine:
                     self.cups -= 1
                     self.water -= CoffeeMachine.CAPUCCINO_WATER
                 
-                    print(f"Capuccino  #{count} Ready\n=============================\n")
+                    print(f"Capuccino  #{i+1} Ready\n=============================\n")
 
-                else: print(f"Capuccino #{count} could not be filled because 1 or more ingredients is missing\n=============================\n")
+                else: print(f"Capuccino #{i+1} could not be filled because 1 or more ingredients is missing\n=============================\n")
 
 
     def machineFill(self):
@@ -91,6 +91,7 @@ class CoffeeMachine:
             self.milk += milkToAdd
 
             print(f"Added Beans: {beansToAdd}\nAdded Cups: {cupsToAdd}\nAdded Water: {waterToAdd}\nAdded Milk: {milkToAdd}\n=============================\n")
+        else: print("\n=============================\nMachine Already Filled\n=============================\n")
 
 
 
@@ -102,24 +103,41 @@ class CoffeeMachine:
 leave = False
 c = CoffeeMachine()
 print("Welcome To JavaCofeeStore.")
-while leave == False: 
 
-    print(f"What would YOU like?\n\n\t1 - Make ESPRESSO:  {CoffeeMachine.ESPRESSO_PRICE}$\n\t2 - Make LATTE:     {CoffeeMachine.LATTE_PRICE}$\n\t3 - Make CAPUCCINO: {CoffeeMachine.CAPUCCINO_PRICE}$\n")
+while not leave: 
+
+    print(f"What would YOU like?\n\n\t1 - Make ESPRESSO:  {CoffeeMachine.ESPRESSO_PRICE}$\n\t2 - Make LATTE:     {CoffeeMachine.LATTE_PRICE}$\n\t3 - Make CAPUCCINO: {CoffeeMachine.CAPUCCINO_PRICE}$")
     print(f"\t4 - SHOW DATA:\n\t5 - REFILL:\n\t6 - TO LEAVE:\n\n=============================")
     opcion =int(input().strip())
-    print(opcion.typ)
-    if opcion ==1: 
-        c.makeCofee(1,1)
-    elif opcion ==2: 
-        c.makeCofee(2,1)
-    elif opcion ==3: 
-        c.makeCofee(3,1)
-    elif opcion ==4: 
-        c.showData()       
-    elif opcion ==5: 
-        c.machineFill()
-    elif opcion ==6: 
-        leave == True
 
+
+    try:
+        if opcion ==1: 
+            latteNumber = int(input("How Many?: ").strip())
+            c.makeCofee(1,latteNumber)
+            input("Press ENTER to continue...")
+
+        elif opcion ==2: 
+            espressoNumber = int(input("How Many?: ").strip())
+            c.makeCofee(2,espressoNumber)
+            input("Press ENTER to continue...")
+
+        elif opcion ==3:
+            capuccinoNumber = int(input("How Many?: ").strip()) 
+            c.makeCofee(3,capuccinoNumber)
+            input("Press ENTER to continue...")
+
+        elif opcion ==4: 
+            c.showData()    
+            input("Press ENTER to continue...")   
+
+        elif opcion ==5: 
+            c.machineFill()
+
+        elif opcion ==6: 
+            leave = True
+        else: break
+    except ValueError:
+        print("Enter a valid number")
         
 
