@@ -14,22 +14,21 @@ class coffee_type(Enum):
 
 COFFEE_INGREDIENTS = {
     # ESPRESSO
-    coffee_type.ESPRESSO_SMALL:  {"water": 30, "beans": 15, "milk": 0, "cup_size": "small",  "price": 4},
-    coffee_type.ESPRESSO_MEDIUM: {"water": 50, "beans": 16, "milk": 0, "cup_size": "small", "price": 5},
-    coffee_type.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cup_size": "small",  "price": 6},
+    coffee_type.ESPRESSO_SMALL:  {"water": 30, "beans": 10, "milk": 0, "cup_size": "small",  "price": 4, "ice": 0},
+    coffee_type.ESPRESSO_MEDIUM: {"water": 50, "beans": 14, "milk": 0, "cup_size": "small", "price": 5, "ice": 0},
+    coffee_type.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cup_size": "small",  "price": 6, "ice": 0},
 
     # LATTE
+    coffee_type.LATTE_SMALL:  {"water": 30, "beans": 10, "milk": 200, "cup_size": "small",  "price": 6, "ice": 50}, 
+    coffee_type.LATTE_MEDIUM: {"water": 30, "beans": 14, "milk": 250, "cup_size": "medium", "price": 7, "ice": 60},
+    coffee_type.LATTE_LARGE:  {"water": 30, "beans": 18, "milk": 270, "cup_size": "large",  "price": 8, "ice": 80},
 
-    coffee_type.LATTE_SMALL:  {"water": 30, "beans": 8,  "milk": 220, "cup_size": "small", "price": 6}, 
-    coffee_type.LATTE_MEDIUM: {"water": 30, "beans": 8,  "milk": 270, "cup_size": "medium", "price": 7},
-    coffee_type.LATTE_LARGE:  {"water": 30, "beans": 8,  "milk": 320, "cup_size": "large", "price": 8},
-
-    # CAPUCCINO 
-    coffee_type.CAPUCCINO_SMALL:  {"water": 30, "beans": 8,  "milk": 180, "cup_size": "small", "price": 6},
-    coffee_type.CAPUCCINO_MEDIUM: {"water": 30, "beans": 8,  "milk": 240, "cup_size": "medium", "price": 7},
-    coffee_type.CAPUCCINO_LARGE:  {"water": 30, "beans": 8,  "milk": 310, "cup_size": "large", "price": 8} 
-
+    # CAPPUCCINO
+    coffee_type.CAPUCCINO_SMALL:  {"water": 30, "beans": 10, "milk": 140, "cup_size": "small",  "price": 6, "ice": 50},
+    coffee_type.CAPUCCINO_MEDIUM: {"water": 50, "beans": 14, "milk": 180, "cup_size": "medium", "price": 7, "ice": 60},
+    coffee_type.CAPUCCINO_LARGE:  {"water": 70, "beans": 18, "milk": 240, "cup_size": "large",  "price": 8, "ice": 80}
 }
+
 
 
 class coffee_machine:
@@ -41,6 +40,7 @@ class coffee_machine:
     MAX_CUPS = 10
     MAX_WATER = 2500
     MAX_MILK = 1000
+    MAX_ICE = 500
 
     #Cofee Finance
     coffee_bank = 0
@@ -58,6 +58,7 @@ class coffee_machine:
 
         self.water = 2500
         self.milk  = 1000
+        self.ice   = 500
 
     def show_data(self):
         print(f"COFEE MACHINE HAS:\nBeans: {self.beans} \nCups: {self.cups} \nWater: {self.water} \nMilk: {self.milk}\n=============================\n")
@@ -83,27 +84,35 @@ class coffee_machine:
             self.cups_small -= 1
 
 
-    def _has_enough_ingredients(self, coffee_type):
-        """Checks for each ingredient in the machine to be more that the amount needed"""
-        return (self.beans >= coffee_type['beans'] and
-            self.cups>= 1 and
-            self.water >=coffee_type['water'] and
-            self.milk >= coffee_type['milk'])
+    def _has_enough_ingredients(self, recipe, temperature, cup_size):
+        """Checks if the machine has enough ingredients before making coffee"""
+        has_enough = (
+            self.beans >= recipe['beans'] and
+            self.get_cups_inventory(cup_size) >= 1 and
+            self.water >= recipe['water'] and
+            self.milk  >= recipe['milk']
+        )
+        if temperature != 0:
+            has_enough = has_enough and (self.ice >= recipe['ice'])
 
-    def _consume_ingredients(self, coffee_type):
+        return has_enough
+
+
+    def _consume_ingredients(self, coffee_type, temperature):
         coffee_type = COFFEE_INGREDIENTS[coffee_type]
         cup_size = coffee_type["cup_size"]
-
         self.beans -= coffee_type['beans']
         self.water -= coffee_type['water']
         self.beans -= coffee_type['milk']
         self._consume_cup(cup_size)
-
-    def _make_one_coffee(self,coffee_type,coffee_number):
+        if temperature != 0:
+            self.ice -= coffee_type['ice']
+        
+    def _make_one_coffee(self,coffee_type,coffee_number,temperature):
         """Depending the cofffee type the ifs statement checks if removing the amount needed for each coffee is affordable, if it is then we calculate the difference """
         
         if self ._has_enough_ingredients(coffee_type):
-            self._consume_ingredients(coffee_type)
+            self._consume_ingredients(coffee_type,temperature)
             recipe = COFFEE_INGREDIENTS[coffee_type]
             self.coffee_bank += recipe["price"]
             print(f"{coffee_type.name} #{coffee_number} is ready")
@@ -118,7 +127,7 @@ class coffee_machine:
         success =0
         if how_many <= 3:
             for i in range(how_many):
-                if self._make_one_coffee(coffee_type,i+1) == True:
+                if self._make_one_coffee(coffee_type,i+1,temperature) == True:
                     success += 1
                 else:
                     break
@@ -142,11 +151,12 @@ class coffee_machine:
 
 
             beans_to_add= calculate_refill(self.beans,coffee_machine.MAX_BEANS)
-            cups_to_add_small = calculate_refill(self.cups,coffee_machine.MAX_CUPS_SMALL)
-            cups_to_add_medium = calculate_refill(self.cups,coffee_machine.MAX_CUPS_MEDIUM)
-            cups_to_add_large = calculate_refill(self.cups,coffee_machine.MAX_CUPS_LARGE)
+            cups_to_add_small = calculate_refill(self.cups_small,coffee_machine.MAX_CUPS_SMALL)
+            cups_to_add_medium = calculate_refill(self.cups_medium,coffee_machine.MAX_CUPS_MEDIUM)
+            cups_to_add_large = calculate_refill(self.cups_large,coffee_machine.MAX_CUPS_LARGE)
             water_to_add = calculate_refill(self.water,coffee_machine.MAX_WATER)
             milk_to_add = calculate_refill(self.milk,coffee_machine.MAX_MILK)
+            ice_to_add = calculate_refill(self.ice,coffee_machine.MAX_ICE)
 
             self.beans += beans_to_add 
             self.cups_small += cups_to_add_small
@@ -154,6 +164,7 @@ class coffee_machine:
             self.cups_large += cups_to_add_large
             self.water += water_to_add
             self.milk += milk_to_add
+            self.ice += ice_to_add
 
             print(f"Added Beans: {beans_to_add}\n")
             print(f"Added Small Cups: {cups_to_add_small}\n")
@@ -161,6 +172,7 @@ class coffee_machine:
             print(f"Added Large Cups: {cups_to_add_large}\n")
             print(f"Added Water: {water_to_add}\n")
             print(f"Added Milk: {milk_to_add}\n")
+            print(f"Added Ice: {ice_to_add}\n")
             print("=" * 12)
 
         else: 
