@@ -19,6 +19,7 @@ COFFEE_INGREDIENTS = {
     coffee_type.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cup_size": "small",  "price": 6},
 
     # LATTE
+
     coffee_type.LATTE_SMALL:  {"water": 30, "beans": 8,  "milk": 220, "cup_size": "small", "price": 6}, 
     coffee_type.LATTE_MEDIUM: {"water": 30, "beans": 8,  "milk": 270, "cup_size": "medium", "price": 7},
     coffee_type.LATTE_LARGE:  {"water": 30, "beans": 8,  "milk": 320, "cup_size": "large", "price": 8},
@@ -27,6 +28,7 @@ COFFEE_INGREDIENTS = {
     coffee_type.CAPUCCINO_SMALL:  {"water": 30, "beans": 8,  "milk": 180, "cup_size": "small", "price": 6},
     coffee_type.CAPUCCINO_MEDIUM: {"water": 30, "beans": 8,  "milk": 240, "cup_size": "medium", "price": 7},
     coffee_type.CAPUCCINO_LARGE:  {"water": 30, "beans": 8,  "milk": 310, "cup_size": "large", "price": 8} 
+
 }
 
 
@@ -49,9 +51,11 @@ class coffee_machine:
 
     def __init__(self):
         self.beans = 200
+
         self.cups_small  = 10
         self.cups_medium  = 10
         self.cups_large  = 10
+
         self.water = 2500
         self.milk  = 1000
 
@@ -136,6 +140,7 @@ class coffee_machine:
             def calculate_refill(currentStorage, maxStorage):
                 return maxStorage - currentStorage
 
+
             beans_to_add= calculate_refill(self.beans,coffee_machine.MAX_BEANS)
             cups_to_add_small = calculate_refill(self.cups,coffee_machine.MAX_CUPS_SMALL)
             cups_to_add_medium = calculate_refill(self.cups,coffee_machine.MAX_CUPS_MEDIUM)
@@ -180,6 +185,7 @@ class coffee_machine:
                     print("Enter a valid number")
             except ValueError:
                 print("Enter a valid number")
+
 
     while True:
         try:
