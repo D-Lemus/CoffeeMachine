@@ -104,11 +104,13 @@ leave = False
 c = CoffeeMachine()
 print("Welcome To JavaCofeeStore.")
 
+print()
+
 while not leave: 
 
     print(f"What would YOU like?\n\n\t1 - Make ESPRESSO:  {CoffeeMachine.ESPRESSO_PRICE}$\n\t2 - Make LATTE:     {CoffeeMachine.LATTE_PRICE}$\n\t3 - Make CAPUCCINO: {CoffeeMachine.CAPUCCINO_PRICE}$")
-    print(f"\t4 - SHOW DATA:\n\t5 - REFILL:\n\t6 - TO LEAVE:\n\n=============================")
-    opcion =int(input().strip())
+    print(f"\t4 - ADMINISTRATE:\n\t5 - LEAVE")
+    opcion =int(input("Choose option: ").strip())
 
 
     try:
@@ -128,16 +130,36 @@ while not leave:
             input("Press ENTER to continue...")
 
         elif opcion ==4: 
-            c.showData()    
-            input("Press ENTER to continue...")   
 
+            Password = input("Admin Password: ")
+
+            if (Password == "M3vty7frw2@20"):
+                while True:
+                    try:
+                        print(f"\n=============================\n\t1. - SHOW DATA:\n\t2 - REFILL:\n\t3 - TO LEAVE:\n\n=============================")
+                        adminOption = int(input("Choose Option: ").strip())
+                        
+
+                        if adminOption == 1:
+                            c.showData()
+                            input("Press ENTER to continue...")
+                        elif adminOption == 2:
+                            c.machineFill()
+                            input("Press ENTER to continue...")
+                        elif adminOption == 3:
+                            break
+
+                    except ValueError: 
+                        print("Please enter a vlid number ")
+            else:
+                print("Wrong Password. Bye.\n")
+                input("Press ENTER to exit...\n")
+                
         elif opcion ==5: 
-            c.machineFill()
-
-        elif opcion ==6: 
             leave = True
-        else: break
+
+
     except ValueError:
-        print("Enter a valid number")
+        print("Please enter a valid number")
         
 
