@@ -1,39 +1,5 @@
 from enum import Enum
 
-<<<<<<< HEAD
-class coffee_type(Enum):
-    ESPRESSO_SMALL= 1
-    ESPRESSO_MEDIUM = 2
-    ESPRESSO_LARGE = 3
-    LATTE_SMALL = 4
-    LATTE_MEDIUM = 5
-    LATTE_LARGE = 6
-    CAPUCCINO_SMALL = 7
-    CAPUCCINO_MEDIUM = 8
-    CAPUCCINO_LARGE = 9
-
-
-COFFEE_INGREDIENTS = {
-    # ESPRESSO
-    coffee_type.ESPRESSO_SMALL:  {"water": 30, "beans": 10, "milk": 0, "cup_size": "small",  "price": 4, "ice": 0},
-    coffee_type.ESPRESSO_MEDIUM: {"water": 50, "beans": 14, "milk": 0, "cup_size": "small", "price": 5, "ice": 0},
-    coffee_type.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cup_size": "small",  "price": 6, "ice": 0},
-
-    # LATTE
-    coffee_type.LATTE_SMALL:  {"water": 30, "beans": 10, "milk": 200, "cup_size": "small",  "price": 6, "ice": 50}, 
-    coffee_type.LATTE_MEDIUM: {"water": 30, "beans": 14, "milk": 250, "cup_size": "medium", "price": 7, "ice": 60},
-    coffee_type.LATTE_LARGE:  {"water": 30, "beans": 18, "milk": 270, "cup_size": "large",  "price": 8, "ice": 80},
-
-    # CAPPUCCINO
-    coffee_type.CAPUCCINO_SMALL:  {"water": 30, "beans": 10, "milk": 140, "cup_size": "small",  "price": 6, "ice": 50},
-    coffee_type.CAPUCCINO_MEDIUM: {"water": 50, "beans": 14, "milk": 180, "cup_size": "medium", "price": 7, "ice": 60},
-    coffee_type.CAPUCCINO_LARGE:  {"water": 70, "beans": 18, "milk": 240, "cup_size": "large",  "price": 8, "ice": 80}
-}
-=======
->>>>>>> 70c6c1f4fd233023c693a736ba893e6dbc01a2fc
-
-
-
 class coffee_machine:
 
     class coffee_type(Enum):
@@ -49,22 +15,20 @@ class coffee_machine:
 
 
     COFFEE_INGREDIENTS = {
-        # ESPRESSO
-        coffee_type.ESPRESSO_SMALL:  {"water": 30, "beans": 15, "milk": 0, "cup_size": "small",  "price": 4},
-        coffee_type.ESPRESSO_MEDIUM: {"water": 50, "beans": 16, "milk": 0, "cup_size": "small", "price": 5},
-        coffee_type.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cup_size": "small",  "price": 6},
+    # ESPRESSO
+    coffee_type.ESPRESSO_SMALL:  {"water": 30, "beans": 10, "milk": 0, "cup_size": "small",  "price": 4, "ice": 0},
+    coffee_type.ESPRESSO_MEDIUM: {"water": 50, "beans": 14, "milk": 0, "cup_size": "small", "price": 5, "ice": 0},
+    coffee_type.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cup_size": "small",  "price": 6, "ice": 0},
 
-        # LATTE
+    # LATTE
+    coffee_type.LATTE_SMALL:  {"water": 30, "beans": 10, "milk": 200, "cup_size": "small",  "price": 6, "ice": 50}, 
+    coffee_type.LATTE_MEDIUM: {"water": 30, "beans": 14, "milk": 250, "cup_size": "medium", "price": 7, "ice": 60},
+    coffee_type.LATTE_LARGE:  {"water": 30, "beans": 18, "milk": 270, "cup_size": "large",  "price": 8, "ice": 80},
 
-        coffee_type.LATTE_SMALL:  {"water": 30, "beans": 8,  "milk": 220, "cup_size": "small", "price": 6}, 
-        coffee_type.LATTE_MEDIUM: {"water": 30, "beans": 8,  "milk": 270, "cup_size": "medium", "price": 7},
-        coffee_type.LATTE_LARGE:  {"water": 30, "beans": 8,  "milk": 320, "cup_size": "large", "price": 8},
-
-        # CAPUCCINO 
-        coffee_type.CAPUCCINO_SMALL:  {"water": 30, "beans": 8,  "milk": 180, "cup_size": "small", "price": 6},
-        coffee_type.CAPUCCINO_MEDIUM: {"water": 30, "beans": 8,  "milk": 240, "cup_size": "medium", "price": 7},
-        coffee_type.CAPUCCINO_LARGE:  {"water": 30, "beans": 8,  "milk": 310, "cup_size": "large", "price": 8} 
-
+    # CAPPUCCINO
+    coffee_type.CAPUCCINO_SMALL:  {"water": 30, "beans": 10, "milk": 140, "cup_size": "small",  "price": 6, "ice": 50},
+    coffee_type.CAPUCCINO_MEDIUM: {"water": 50, "beans": 14, "milk": 180, "cup_size": "medium", "price": 7, "ice": 60},
+    coffee_type.CAPUCCINO_LARGE:  {"water": 70, "beans": 18, "milk": 240, "cup_size": "large",  "price": 8, "ice": 80}
     }
 
     #Capacity constants
