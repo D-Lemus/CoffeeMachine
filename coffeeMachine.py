@@ -1,3 +1,32 @@
+from enum import Enum
+
+class CoffeeType(Enum):
+    ESPRESSO_SMALL= 1
+    ESPRESSO_MEDIUM = 2
+    ESPRESSO_LARGE = 3
+    LATTE_SMALL = 4
+    LATTE_MEDIUM = 5
+    LATTE_LARGE = 6
+    CAPUCCINO_SMALL = 7
+    CAPUCCINO_MEDIUM = 8
+    CAPUCCINO_LARGE = 9
+
+COFFEE_INGREDIENTS = {
+    # ESPRESSO
+    CoffeeType.ESPRESSO_SMALL:  {"water": 30, "beans": 15, "milk": 0, "cups_small": 1,  "price": 4},
+    CoffeeType.ESPRESSO_MEDIUM: {"water": 50, "beans": 16, "milk": 0, "cups_small": 1, "price": 5},
+    CoffeeType.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cups_small": 1,  "price": 6},
+
+    # LATTE
+    CoffeeType.LATTE_SMALL:  {"water": 250, "beans": 18, "milk": 50,  "cups_small": 1,  "price": 6},
+    CoffeeType.LATTE_MEDIUM: {"water": 300, "beans": 20, "milk": 75,  "cups_medium": 1, "price": 7},
+    CoffeeType.LATTE_LARGE:  {"water": 350, "beans": 22, "milk": 100, "cups_large": 1,  "price": 8},
+
+    # CAPUCCINO
+    CoffeeType.CAPUCCINO_SMALL:  {"water": 250, "beans": 12, "milk": 80, "cups_small": 1,  "price": 5},
+    CoffeeType.CAPUCCINO_MEDIUM: {"water": 300, "beans": 14, "milk": 100, "cups_medium": 1, "price": 6},
+    CoffeeType.CAPUCCINO_LARGE:  {"water": 350, "beans": 16, "milk": 120, "cups_large": 1,  "price": 7}
+}
 
 
 class coffee_machine:
@@ -6,11 +35,6 @@ class coffee_machine:
     MAX_CUPS = 10
     MAX_WATER = 2500
     MAX_MILK = 1000
-
-    #Price constants
-    ESPRESSO_PRICE=4
-    LATTE_PRICE=7
-    CAPUCCINO_PRICE=6
 
     #Ingredient Cost constants for each Cofee Type
     ESPRESSO_WATER,ESPRESSO_BEANS = 250,16
