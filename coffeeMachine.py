@@ -18,28 +18,25 @@ COFFEE_INGREDIENTS = {
     CoffeeType.ESPRESSO_LARGE:  {"water": 70, "beans": 18, "milk": 0, "cups_small": 1,  "price": 6},
 
     # LATTE
-    CoffeeType.LATTE_SMALL:  {"water": 250, "beans": 18, "milk": 50,  "cups_small": 1,  "price": 6},
-    CoffeeType.LATTE_MEDIUM: {"water": 300, "beans": 20, "milk": 75,  "cups_medium": 1, "price": 7},
-    CoffeeType.LATTE_LARGE:  {"water": 350, "beans": 22, "milk": 100, "cups_large": 1,  "price": 8},
+    CoffeeType.LATTE_SMALL:  {"water": 30, "beans": 8,  "milk": 220, "cups_small": 1, "price": 6}, 
+    CoffeeType.LATTE_MEDIUM: {"water": 30, "beans": 8,  "milk": 270, "cups_medium": 1, "price": 7},
+    CoffeeType.LATTE_LARGE:  {"water": 30, "beans": 8,  "milk": 320, "cups_large": 1, "price": 8},
 
-    # CAPUCCINO
-    CoffeeType.CAPUCCINO_SMALL:  {"water": 250, "beans": 12, "milk": 80, "cups_small": 1,  "price": 5},
-    CoffeeType.CAPUCCINO_MEDIUM: {"water": 300, "beans": 14, "milk": 100, "cups_medium": 1, "price": 6},
-    CoffeeType.CAPUCCINO_LARGE:  {"water": 350, "beans": 16, "milk": 120, "cups_large": 1,  "price": 7}
+    # CAPUCCINO 
+    CoffeeType.CAPUCCINO_SMALL:  {"water": 30, "beans": 8,  "milk": 180, "cups_small": 1, "price": 6},
+    CoffeeType.CAPUCCINO_MEDIUM: {"water": 30, "beans": 8,  "milk": 240, "cups_medium": 1, "price": 7},
+    CoffeeType.CAPUCCINO_LARGE:  {"water": 30, "beans": 8,  "milk": 310, "cups_large": 1, "price": 8} 
 }
 
 
 class coffee_machine:
     #Capacity constants
     MAX_BEANS = 200
-    MAX_CUPS = 10
+    MAX_CUPS_SMALL = 10
+    MAX_CUPS_MEDIUM = 10
+    MAX_CUPS_LARGE = 10
     MAX_WATER = 2500
     MAX_MILK = 1000
-
-    #Ingredient Cost constants for each Cofee Type
-    ESPRESSO_WATER,ESPRESSO_BEANS = 250,16
-    LATTE_WATER,LATTE_MILK, LATTE_BEANS = 250,75,20
-    CAPUCCINO_WATER,CAPUCCINO_MILK, CAPUCCINO_BEANS = 200,100,12
 
     #Cofee Finance
     coffeeBank = 0
@@ -50,7 +47,9 @@ class coffee_machine:
 
     def __init__(self):
         self.beans = 200
-        self.cups  = 10
+        self.cupsSmall  = 10
+        self.cupsMedium  = 10
+        self.cupsLarge  = 10
         self.water = 2500
         self.milk  = 1000
 
@@ -99,22 +98,26 @@ class coffee_machine:
 
     def machine_fill(self):
         #Checks if theres stuff to refill and then calculates the amount needed to fill AND avoid it from overflowing
-        if (self.beans < coffee_machine.MAX_BEANS or self.cups < coffee_machine.MAX_CUPS or self.water < coffee_machine.MAX_WATER or self.milk < coffee_machine.MAX_MILK):
+        if (self.beans < coffee_machine.MAX_BEANS or self.cups < coffee_machine.MAX_CUPS_SMALL or self.water < coffee_machine.MAX_WATER or self.milk < coffee_machine.MAX_MILK or self.cups < coffee_machine.MAX_CUPS_MEDIUM or self.cups < coffee_machine.MAX_CUPS_LARGE):
             
-            #Lambda to OverKill
-            calculate_refill = lambda currentStorage, maxStorage: maxStorage - currentStorage
+            def calculate_refill(currentStorage, maxStorage):
+                return maxStorage - currentStorage
 
             beansToAdd= calculate_refill(self.beans,coffee_machine.MAX_BEANS)
-            cupsToAdd = calculate_refill(self.cups,coffee_machine.MAX_CUPS)
+            cupsToAddSmall = calculate_refill(self.cups,coffee_machine.MAX_CUPS_SMALL)
+            cupsToAddMedium = calculate_refill(self.cups,coffee_machine.MAX_CUPS_MEDIUM)
+            cupsToAddLarge = calculate_refill(self.cups,coffee_machine.MAX_CUPS_LARGE)
             waterToAdd = calculate_refill(self.water,coffee_machine.MAX_WATER)
             milkToAdd = calculate_refill(self.milk,coffee_machine.MAX_MILK)
 
             self.beans += beansToAdd 
-            self.cups += cupsToAdd
+            self.cupsSmall += cupsToAddSmall
+            self.cupsMedium += cupsToAddMedium
+            self.cupsLarge += cupsToAddLarge
             self.water += waterToAdd
             self.milk += milkToAdd
 
-            print(f"Added Beans: {beansToAdd}\nAdded Cups: {cupsToAdd}\nAdded Water: {waterToAdd}\nAdded Milk: {milkToAdd}\n=============================\n")
+            print(f"Added Beans: {beansToAdd}\nAdded Cups:\tSmall:{cupsToAddSmall}\tMedium:{cupsToAddMedium}\tLarge:{cupsToAddLarge}\nAdded Water: {waterToAdd}\nAdded Milk: {milkToAdd}\n=============================\n")
         else: print("\n=============================\nMachine Already Filled\n=============================\n")
 
 def payment_method(self):  
