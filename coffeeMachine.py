@@ -74,7 +74,7 @@ class coffee_machine:
         self.large_cups_refilled = 0
 
     def show_data(self):
-        print(f"COFEE MACHINE HAS:\nBeans: {self.beans} \nCups: {self.cups} \nWater: {self.water} \nMilk: {self.milk}\n=============================\n")
+        print(f"COFEE MACHINE HAS:\nBeans: {self.beans} \nSmall Cups: {self.cups_small}\nMedium Cups: {self.cups_medium}\nLarge Cups: {self.cups_large} \nWater: {self.water} \nMilk: {self.milk}\n=============================\n")
     
     def get_cups_inventory(self,cup_size):
         #Returns inventory based on the size
@@ -159,7 +159,7 @@ class coffee_machine:
 
     def machine_fill(self):
         #Checks if theres stuff to refill and then calculates the amount needed to fill AND avoid it from overflowing
-        if (self.beans < coffee_machine.MAX_BEANS or self.cups < coffee_machine.MAX_CUPS_SMALL or self.water < coffee_machine.MAX_WATER or self.milk < coffee_machine.MAX_MILK or self.cups < coffee_machine.MAX_CUPS_MEDIUM or self.cups < coffee_machine.MAX_CUPS_LARGE):
+        if (self.beans < coffee_machine.MAX_BEANS or self.cups_small < coffee_machine.MAX_CUPS_SMALL or self.water < coffee_machine.MAX_WATER or self.milk < coffee_machine.MAX_MILK or self.cups_medium < coffee_machine.MAX_CUPS_MEDIUM or self.cups_large < coffee_machine.MAX_CUPS_LARGE):
             
             def calculate_refill(currentStorage, maxStorage):
                 return maxStorage - currentStorage

@@ -41,14 +41,29 @@ class coffee_shop:
     
 
     def show_admin_menu(self):
-        print("1.Analytics\n2.Finance\n")
-        admin_option=int(input("ENTER OPTION: \n").strip())
+        while True:
+            print("1.Analytics\n2.Finance\n3.Show Storage\n4.fill Machine\n5. Leave")
+            admin_option=int(input("ENTER OPTION: \n").strip())
 
-        if admin_option == 1: self.show_analytics()
-        elif admin_option == 2:self.show_finance()
-        else: 
-            print("Wrong Option, try again.")
-            return False
+            if admin_option == 1: 
+                self.show_analytics()
+                input("\nPress ENTER to continue...")
+            elif admin_option == 2:
+                self.show_finance()
+                input("\nPress ENTER to continue...")
+            elif admin_option == 3:
+                self.machine.show_data()
+                input("\nPress ENTER to continue...")
+            elif admin_option == 4:
+                self.machine.machine_fill()
+                input("\nPress ENTER to continue...")
+
+
+            elif admin_option == 5: return False
+            else: 
+                print("Wrong Option, try again.")
+                input("\nPress ENTER to continue...")
+                
 
         
     def _display_menu(self):
@@ -71,20 +86,22 @@ class coffee_shop:
 
                 coffee_enum = list(self.machine.coffee_type)[user_option-1]
                 self.machine.make_coffees(coffee_enum,how_many,1)
+                input("\nPress ENTER to continue...")
         #LATTE
         elif user_option >= 4 and user_option <= 9:
             how_many=int(input("How many [max is 3]: \n").strip())
             if how_many <= 3:
-                temperature=int(input("Hot? or Cold:\n\t1.HOT\t\n2.COLD\n").strip())
+                temperature=int(input("Hot? or Cold:\n\t1.HOT\n\t2.COLD\n").strip())
 
                 #converitr opcion a enum
                 coffee_enum = list(self.machine.coffee_type)[user_option-1]
                 self.machine.make_coffees(coffee_enum,how_many,temperature)
+                input("\nPress ENTER to continue...")
 
         #CAPUCCINO
         elif user_option == 10:
             psswrd=input("Admin password: ").strip()
-            if psswrd == 'M3vty7frw2@20':
+            if psswrd == 'HOFOY':
                 self.show_admin_menu()
             else: 
                 print("Wrong Password. Bye.")
