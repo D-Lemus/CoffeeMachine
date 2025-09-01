@@ -82,26 +82,35 @@ class coffee_shop:
         if user_option >= 1 and user_option <= 3:
             how_many=int(input("How many [max is 3]: \n").strip())
 
-            if how_many <= 3:
+            while True:
+                if how_many <= 3:
 
-                coffee_enum = list(self.machine.coffee_type)[user_option-1]
-                self.machine.make_coffees(coffee_enum,how_many,1)
-                
+                    coffee_enum = list(self.machine.coffee_type)[user_option-1]
+                    self.machine.make_coffees(coffee_enum,how_many,1)
+                    
 
-                self.machine.payment_method(self.machine.total_order)
-                input("\nPress ENTER to continue...")
+                    self.machine.payment_method(self.machine.total_order)
+                    input("\nPress ENTER to continue...")
+                else: 
+                    print("Not a valid number.")
+                    return False
+
         #LATTE
         elif user_option >= 4 and user_option <= 9:
             how_many=int(input("How many [max is 3]: \n").strip())
-            if how_many <= 3:
-                temperature = int(input("You want Coffee Hot or Cold:\n\t1.HOT\n\t2.COLD\n").strip())
+            while True:
+                if how_many <= 3:
+                    temperature = int(input("You want Coffee Hot or Cold:\n\t1.HOT\n\t2.COLD\n").strip())
 
 
-                #converitr opcion a enum
-                coffee_enum = list(self.machine.coffee_type)[user_option-1]
-                self.machine.make_coffees(coffee_enum,how_many,temperature)
-                self.machine.payment_method(self.machine.total_order)
-                input("\nPress ENTER to continue...")
+                    #converitr opcion a enum
+                    coffee_enum = list(self.machine.coffee_type)[user_option-1]
+                    self.machine.make_coffees(coffee_enum,how_many,temperature)
+                    self.machine.payment_method(self.machine.total_order)
+                    input("\nPress ENTER to continue...")
+                else: 
+                    print("Not a valid number.")
+                    return False
 
         #CAPUCCINO
         elif user_option == 10:

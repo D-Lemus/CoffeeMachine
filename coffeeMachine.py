@@ -74,7 +74,17 @@ class coffee_machine:
         self.large_cups_refilled = 0
 
     def show_data(self):
-        print(f"COFEE MACHINE HAS:\nBeans: {self.beans} \nSmall Cups: {self.cups_small}\nMedium Cups: {self.cups_medium}\nLarge Cups: {self.cups_large} \nWater: {self.water} \nMilk: {self.milk}\n=============================\n")
+        print("=" * 30)
+        print(f"COFEE MACHINE HAS:\nBeans: {self.beans}")
+        print(f"\nSmall Cups: {self.cups_small}")
+        print(f"\nMedium Cups: {self.cups_medium}")
+        print(f"\nWater: {self.water}")
+        print(f"\nMilk: {self.milk}")
+        print("\n=" * 30)
+
+
+     
+
     
     def get_cups_inventory(self,cup_size):
         #Returns inventory based on the size
@@ -132,10 +142,10 @@ class coffee_machine:
         if self._has_enough_ingredients(recipe, cup_size, temperature):
             self._consume_ingredients(coffee_type,temperature)
             self.total_order = recipe["price"]
-            print(f"{coffee_type.name} #{coffee_number} is ready")
+            print(f"\n{coffee_type.name} #{coffee_number} is ready")
             return True
         else:       
-            print(f"{coffee_type.name} #{coffee_number} could not be made due to 1 or more ingredients missing")
+            print(f"\n{coffee_type.name} #{coffee_number} could not be made due to 1 or more ingredients missing")
             return False
 
 
@@ -177,7 +187,7 @@ class coffee_machine:
             low_ingredients.append("ice")
 
         if low_ingredients:
-           print(f"Warning: Low inventory for the following ingredients:")
+           print(f"\n===Warning: Low inventory for the following ingredients===")
            for i in low_ingredients:
                print(f"- {i}")
 
@@ -213,7 +223,7 @@ class coffee_machine:
             self.medium_cups_refilled += cups_to_add_medium
             self.large_cups_refilled += cups_to_add_large
 
-
+            print("\n=" * 30)
             print(f"Added Beans: {beans_to_add}\n")
             print(f"Added Small Cups: {cups_to_add_small}\n")
             print(f"Added Medium Cups: {cups_to_add_medium}\n")
@@ -236,15 +246,15 @@ class coffee_machine:
                 donate = int(input("\nYou want to donate a dollar to dog shelter \n\n\t1 - YES\n\t2 - NO, IN OTHER MOMENT\n> ").strip())
                 if (donate == 1):
                     print(f"\nThank you! Your total purchase is ${total_order}.")
-                    print(f"With your donation included, the total is ${total_order + 1}.")
+                    print(f"\nWith your donation included, the total is ${total_order + 1}.")
                     break
                 elif (donate == 2):
                     print(f"\nThank you! Your total purchase is ${total_order}.")
                     break
                 else:
-                    print("Enter a valid number")
+                    print("\nEnter a valid number")
             except ValueError:
-                print("Enter a valid number")
+                print("\nEnter a valid number")
 
 
         while True:
@@ -253,16 +263,16 @@ class coffee_machine:
                 method =int(input("What is yor payment method?\n\n\t1 - CARD\n\t2 - CASH\n").strip())
                 if (method == 1):
                     self.payment_card += 1
-                    print(f"Thanks, you are to going pay ${total_order} with card")
+                    print(f"\nThanks, you are to going pay ${total_order} with card")
                     self.coffee_bank += total_order
                     break
                 elif (method == 2):
                     self.payment_cash += 1
-                    print(f"Thanks, you are to going pay ${total_order} with cash")
+                    print(f"\nThanks, you are to going pay ${total_order} with cash")
                     self.coffee_bank += total_order
                     break
                 else:
-                    print("Enter a valid number")
+                    print("\nEnter a valid number")
             except ValueError:
-                print("Enter a valid number")       
+                print("\nEnter a valid number")       
 
