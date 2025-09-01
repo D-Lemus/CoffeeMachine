@@ -120,7 +120,9 @@ class coffee_machine:
         self._consume_cup(cup_size)
         if temperature != 0:
             self.ice -= coffee_type['ice']
-        
+
+        self.alert_inventory()
+
     def _make_one_coffee(self,coffee_type,coffee_number,temperature):
         """Depending the cofffee type the ifs statement checks if removing the amount needed for each coffee is affordable, if it is then we calculate the difference """
         
@@ -156,6 +158,28 @@ class coffee_machine:
 
         return success
 
+    def alert_inventory(self):
+        """Alerts if any ingredient is low"""
+        low_ingredients = []
+        if self.beans < coffee_machine.MAX_BEANS * 0.25:
+            low_ingredients.append("beans")
+        if self.cups_small < coffee_machine.MAX_CUPS_SMALL * 0.25:
+            low_ingredients.append("small cups")
+        if self.cups_medium < coffee_machine.MAX_CUPS_MEDIUM * 0.25:
+            low_ingredients.append("medium cups")
+        if self.cups_large < coffee_machine.MAX_CUPS_LARGE * 0.25:
+            low_ingredients.append("large cups")
+        if self.water < coffee_machine.MAX_WATER * 0.25:
+            low_ingredients.append("water")
+        if self.milk < coffee_machine.MAX_MILK * 0.25:
+            low_ingredients.append("milk")
+        if self.ice < coffee_machine.MAX_ICE * 0.25:
+            low_ingredients.append("ice")
+
+        if low_ingredients:
+           print(f"Warning: Low inventory for the following ingredients:")
+           for i in low_ingredients:
+               print(f"- {i}")
 
     def machine_fill(self):
         #Checks if theres stuff to refill and then calculates the amount needed to fill AND avoid it from overflowing
@@ -226,7 +250,7 @@ class coffee_machine:
         while True:
             try:
                 total = 0 
-                method =int(input("What is yor payment method?\n\n\t1 - CARD\n\t2 - CASH").strip())
+                method =int(input("What is yor payment method?\n\n\t1 - CARD\n\t2 - CASH\n").strip())
                 if (method == 1):
                     self.payment_card += 1
                     print(f"Thanks, you are to going pay ${total_order} with card")
