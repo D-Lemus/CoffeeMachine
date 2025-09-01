@@ -86,16 +86,21 @@ class coffee_shop:
 
                 coffee_enum = list(self.machine.coffee_type)[user_option-1]
                 self.machine.make_coffees(coffee_enum,how_many,1)
+                
+
+                self.machine.payment_method(self.machine.total_order)
                 input("\nPress ENTER to continue...")
         #LATTE
         elif user_option >= 4 and user_option <= 9:
             how_many=int(input("How many [max is 3]: \n").strip())
             if how_many <= 3:
-                temperature=int(input("Hot? or Cold:\n\t1.HOT\n\t2.COLD\n").strip())
+                temperature = int(input("You want Coffee Hot or Cold:\n\t1.HOT\n\t2.COLD\n").strip())
+
 
                 #converitr opcion a enum
                 coffee_enum = list(self.machine.coffee_type)[user_option-1]
                 self.machine.make_coffees(coffee_enum,how_many,temperature)
+                self.machine.payment_method(self.machine.total_order)
                 input("\nPress ENTER to continue...")
 
         #CAPUCCINO
