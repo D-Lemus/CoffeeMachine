@@ -129,7 +129,7 @@ class coffee_machine:
 
         if self._has_enough_ingredients(recipe, cup_size, temperature):
             self._consume_ingredients(coffee_type,temperature)
-            self.coffee_bank += recipe["price"]
+            self.total_order = recipe["price"]
             print(f"{coffee_type.name} #{coffee_number} is ready")
             return True
         else:       
@@ -146,13 +146,13 @@ class coffee_machine:
                     success += 1
                 else:
                     break
-
-                if coffee_type.name.startswith("ESPRESSO"):
-                    self.espresso_sold += success
-                elif coffee_type.name.startswith("LATTE"):
-                    self.latte_sold += success
-                elif coffee_type.name.startswith("CAPUCCINO"):
-                    self.capuccino_sold += success
+        if success > 0:
+            if coffee_type.name.startswith("ESPRESSO"):
+                self.espresso_sold += success
+            elif coffee_type.name.startswith("LATTE"):
+                self.latte_sold += success
+            elif coffee_type.name.startswith("CAPUCCINO"):
+                self.capuccino_sold += success
 
         return success
 
@@ -205,18 +205,17 @@ class coffee_machine:
             print("=" * 12)
 
         
-    def payment_method(self,coffe_bank):  
+    def payment_method(self,total_order):  
 
         while True:
             try:
-                donate = int(input("You want to donate a dollar to dog shelter \n\n\t1 - YES\n\t2 - NO, IN OTHER MOMENT\n> ").strip())
+                donate = int(input("\nYou want to donate a dollar to dog shelter \n\n\t1 - YES\n\t2 - NO, IN OTHER MOMENT\n> ").strip())
                 if (donate == 1):
-                    total = coffe_bank + 1
-                    print(f"Thanks, your new total is ${total}")
+                    print(f"\nThank you! Your total purchase is ${total_order}.")
+                    print(f"With your donation included, the total is ${total_order + 1}.")
                     break
                 elif (donate == 2):
-                    total= coffe_bank
-                    print(f"Thanks, your total is ${total}")
+                    print(f"\nThank you! Your total purchase is ${total_order}.")
                     break
                 else:
                     print("Enter a valid number")
@@ -229,12 +228,14 @@ class coffee_machine:
                 total = 0 
                 method =int(input("What is yor payment method?\n\n\t1 - CARD\n\t2 - CASH").strip())
                 if (method == 1):
-                    payment_card += 1
-                    print(f"Thanks, you are to going pay ${total} with card")
+                    self.payment_card += 1
+                    print(f"Thanks, you are to going pay ${total_order} with card")
+                    self.coffee_bank += total_order
                     break
                 elif (method == 2):
-                    payment_cash += 1
-                    print(f"Thanks, you are to going pay ${total} with cash")
+                    self.payment_cash += 1
+                    print(f"Thanks, you are to going pay ${total_order} with cash")
+                    self.coffee_bank += total_order
                     break
                 else:
                     print("Enter a valid number")
