@@ -41,7 +41,7 @@ Este proyecto implementa un sistema de máquina de café que permite:
 - Sistema operativo: Windows, macOS o Linux
 
 1. Clonar el repositorio
-git clone https://github.com/D-Lemus/coffee-machine-system.git
+git clone [https://github.com/D-Lemus/coffee-machine-system.git](https://github.com/D-Lemus/CoffeeMachine.git)
 cd coffee-machine-system
 
 2. Verificar la instalación de Python
