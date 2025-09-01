@@ -83,8 +83,6 @@ class coffee_machine:
         print("\n=" * 30)
 
 
-     
-
     
     def get_cups_inventory(self,cup_size):
         #Returns inventory based on the size
@@ -240,16 +238,18 @@ class coffee_machine:
 
         
     def payment_method(self,total_order):  
+        print(f"\nYour total is: ${total_order}")
+
+        input("\nPress Enter to continue with the payment...")
 
         while True:
             try:
-                donate = int(input("\nYou want to donate a dollar to dog shelter \n\n\t1 - YES\n\t2 - NO, IN OTHER MOMENT\n> ").strip())
+                donate = int(input("\nYou want to donate a dollar to dog shelter?\n1 - YES\n2 - NO, IN OTHER MOMENT\n> ").strip())
                 if (donate == 1):
-                    print(f"\nThank you! Your total purchase is ${total_order}.")
-                    print(f"\nWith your donation included, the total is ${total_order + 1}.")
+
+                    print(f"\nThank you! With your donation included, the total is ${total_order + 1}.")
                     break
                 elif (donate == 2):
-                    print(f"\nThank you! Your total purchase is ${total_order}.")
                     break
                 else:
                     print("\nEnter a valid number")
@@ -260,19 +260,20 @@ class coffee_machine:
         while True:
             try:
                 total = 0 
-                method =int(input("What is yor payment method?\n\n\t1 - CARD\n\t2 - CASH\n").strip())
+                method =int(input("\nWhat is yor payment method?\n1 - CARD\n2 - CASH\n> ").strip())
                 if (method == 1):
                     self.payment_card += 1
-                    print(f"\nThanks, you are to going pay ${total_order} with card")
+
+                    print(f"\nYou are to going pay ${total_order} with card. Thanks for your purchase! :)")
                     self.coffee_bank += total_order
                     break
                 elif (method == 2):
                     self.payment_cash += 1
-                    print(f"\nThanks, you are to going pay ${total_order} with cash")
+
+                    print(f"\nYou are to going pay ${total_order} with cash. Thanks for your purchase! :)")
                     self.coffee_bank += total_order
                     break
                 else:
                     print("\nEnter a valid number")
             except ValueError:
-                print("\nEnter a valid number")       
-
+                print("\nEnter a valid number")  

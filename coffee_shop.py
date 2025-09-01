@@ -15,9 +15,9 @@ class coffee_shop:
         print("            Refills Report            ")
         print("=" * 30)
         print(f"Total Coffe Beans Refilled:\t{self.machine.beans_refilled}")
-        print(f"Total Milk Refilled:\t{self.machine.milk_refilled}")
-        print(f"Total Water Refilled:\t{self.machine.water_refilled}")
-        print(f"Total Ice Refilled:\t{self.machine.ice_refilled}\n")
+        print(f"Total Milk Refilled:\t\t{self.machine.milk_refilled}")
+        print(f"Total Water Refilled:\t\t{self.machine.water_refilled}")
+        print(f"Total Ice Refilled:\t\t{self.machine.ice_refilled}\n")
         print(f"Total Small Cups Refilled:\t{self.machine.small_cups_refilled}")
         print(f"Total Medium Cups Refilled:\t{self.machine.medium_cups_refilled}")
         print(f"Total large Cups Refilled:\t{self.machine.large_cups_refilled}")
@@ -42,8 +42,11 @@ class coffee_shop:
 
     def show_admin_menu(self):
         while True:
-            print("1.Analytics\n2.Finance\n3.Show Storage\n4.fill Machine\n5. Leave")
-            admin_option=int(input("ENTER OPTION: \n").strip())
+            print("-" * 30)
+            print("            Admin Menu            ")
+            print("=" * 30)
+            print("\n1 - Analytics\n2 - Finance\n3 - Show Storage\n4 - Fill Machine\n5 - Leave")
+            admin_option=int(input("\nENTER OPTION: \n> ").strip())
 
             if admin_option == 1: 
                 self.show_analytics()
@@ -67,20 +70,21 @@ class coffee_shop:
 
         
     def _display_menu(self):
+        print("\n" + "=" * 30)
         print("Welcome to Java\n")
-        print("What would you like to order?")
+        print("What would you like to order?\n")
         for coffee in self.machine.coffee_type:  
-            print(f"{coffee.value}. {coffee.name} - ${self.machine.COFFEE_INGREDIENTS[coffee]['price']}")
+            print(f"{coffee.value} - {coffee.name}\t${self.machine.COFFEE_INGREDIENTS[coffee]['price']}")
         
 
         print("=" * 30)
-        print("10 -. Administrate")
+        print("10 - Administrate\n")
 
     def _get_user_choice(self,user_option):
 
         #ESPRESSO
         if user_option >= 1 and user_option <= 3:
-            how_many=int(input("How many [max is 3]: \n").strip())
+            how_many=int(input("\nHow many? [max is 3]: \n> ").strip())
 
             while True:
                 if how_many <= 3:
@@ -97,10 +101,12 @@ class coffee_shop:
 
         #LATTE
         elif user_option >= 4 and user_option <= 9:
+
             how_many=int(input("How many [max is 3]: \n").strip())
             while True:
                 if how_many <= 3:
-                    temperature = int(input("You want Coffee Hot or Cold:\n\t1.HOT\n\t2.COLD\n").strip())
+                    temperature = int(input("\nYou want Coffee Hot or Cold? \n1 - HOT\n2 - COLD\n> ").strip())
+
 
 
                     #converitr opcion a enum
@@ -114,7 +120,7 @@ class coffee_shop:
 
         #CAPUCCINO
         elif user_option == 10:
-            psswrd=input("Admin password: ").strip()
+            psswrd=input("Admin password: \n> ").strip()
             if psswrd == 'HOFOY':
                 self.show_admin_menu()
             else: 
@@ -127,7 +133,7 @@ class coffee_shop:
     def show_main_menu(self):
         
         self._display_menu()
-        user_option=int(input("ENTER OPTION: \n").strip())
+        user_option=int(input("ENTER OPTION: \n> ").strip())
         self._get_user_choice(user_option)
 
         
